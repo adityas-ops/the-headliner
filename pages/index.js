@@ -17,7 +17,7 @@ import Link from "next/link";
 import { useState,useEffect } from "react";
 import Cards1 from "@/components/Cards1";
 import Slider from "react-slick";
-
+import axios from "axios";
 export default function Home({ news }) {
 
   const but = ["kamlesh","rohan","Healthy","Technology","Finance","Art","Sports","India","World"]
@@ -27,14 +27,11 @@ export default function Home({ news }) {
 
   useEffect(() => {
    const fetchData = async () => {
-    const res = await fetch(
-      `https://gnews.io/api/v4/search?q=%22${butname}%22&apikey=${process.env.API_KEY}`
-    );
-    const data = await res.json();
-    const dd = data.articles
-    setCategory(dd)
-    console.log("data", dd);
+    // https://gnews.io/api/v4/search?q=%22latest%20news%22&apikey=${process.env.API_KEY}
+      const result = await axios.get(`https://gnews.io/api/v4/search?q=%22${butname}%22&apikey=${process.env.NEXT_PUBLIC_API_KEY}`)
+      setCategory(result.data.articles)
    }
+
     fetchData()
   }, [butname])
 
@@ -177,8 +174,6 @@ export default function Home({ news }) {
               key={item}
               variant="outline"
               borderRadius="20px"
-              height="40px"
-              width="content-fit"
               fontSize="15px"
               fontWeight="bold"
               _hover={{
@@ -189,12 +184,8 @@ export default function Home({ news }) {
                 bg: "var(--button-color)",
                 color: "white",
               }}
-              margin={{
-                base: "10px",
-                md: "0 auto",
-                lg: "0 auto",
-                xl: "20px",
-              }}
+             margin="20px"
+             width="40px"
               onClick={() => 
               setButname(item)
               }
@@ -254,3 +245,5 @@ export async function getServerSideProps() {
     },
   };
 }
+
+
