@@ -27,7 +27,6 @@ export default function Home({ news }) {
 
   useEffect(() => {
    const fetchData = async () => {
-    // https://gnews.io/api/v4/search?q=%22latest%20news%22&apikey=${process.env.API_KEY}
       const result = await axios.get(`https://gnews.io/api/v4/search?q=%22${butname}%22&apikey=${process.env.NEXT_PUBLIC_API_KEY}`)
       setCategory(result.data.articles)
    }
@@ -39,14 +38,14 @@ export default function Home({ news }) {
     dots:false,
     infinite: true,
     speed:500,
-    slidesToShow: 6,
+    slidesToShow: 8,
     slidesToScroll: 3,
     responsive: [
     {
       breakpoint: 480,
       settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToShow: 3,
+        slidesToScroll: 2
       }
     }
   ]
@@ -162,20 +161,27 @@ export default function Home({ news }) {
             <Latest news={news} />
           </Box>
         </Box>
-        <Box
-          w={{
-            base: "100%",
-          }}
-          className="scl"
+        <Box 
+        marginTop={{
+          base: "10px",
+          xl: "20px",
+        }}
         >
           <Slider {...settings}>
           {but.map((item) => (
+            <div 
+            style={{
+              margin:"10px",
+             width:"100px"
+            }}
+            >
             <Button
               key={item}
               variant="outline"
               borderRadius="20px"
               fontSize="15px"
               fontWeight="bold"
+
               _hover={{
                 bg: "var(--button-color)",
                 color: "white",
@@ -184,14 +190,14 @@ export default function Home({ news }) {
                 bg: "var(--button-color)",
                 color: "white",
               }}
-             margin="20px"
-             width="40px"
+           
               onClick={() => 
               setButname(item)
               }
             >
               {item}
             </Button>
+            </div>
           ))}
           </Slider>
         </Box>
@@ -236,7 +242,7 @@ export async function getServerSideProps() {
 
 
   const res = await fetch(
-    `https://gnews.io/api/v4/search?q=%22latest%20news%22&apikey=${process.env.API_KEY}`
+    `https://gnews.io/api/v4/search?q=%22latest%20news%22&apikey=${process.env.NEXT_PUBLIC_API_KEY}`
   );
   const data = await res.json();
   return {
