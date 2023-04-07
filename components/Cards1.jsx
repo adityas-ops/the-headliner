@@ -21,6 +21,7 @@ function Cards1({image,title,content,url}) {
     />
     <Stack mt='6' spacing='3'>
     <Link href={url}
+    target="_blank"
     >
       <Heading
         as='h3'

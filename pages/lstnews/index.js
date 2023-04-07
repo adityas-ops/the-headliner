@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, Container, Text } from "@chakra-ui/react";
+import {  SimpleGrid, Container, Text } from "@chakra-ui/react";
 import Cards1 from "@/components/Cards1";
 
 

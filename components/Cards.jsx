@@ -8,7 +8,9 @@ function Cards({index,content,description,image,title,url}) {
       <div 
        key={index}>
       <Link
-            href={url}>
+            href={url}
+            target="_blank"
+            >
         <Card maxW="lg" h={{
           base: "200px",
           md: "auto",

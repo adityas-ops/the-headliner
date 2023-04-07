@@ -14,42 +14,66 @@ import { Search2Icon, BellIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import Head from "next/head";
 import Latest from "@/components/Latest";
 import Link from "next/link";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Cards1 from "@/components/Cards1";
 import Slider from "react-slick";
 import axios from "axios";
+// import Link from "next/link";
 export default function Home({ news }) {
+  const but = [
+    "World",
+    "India",
+    "Healthy",
+    "Technology",
+    "Finance",
+    "Art",
+    "Sports",
+    "India",
+    "World",
+    "Uk",
+    "America",
+  ];
 
-  const but = ["kamlesh","rohan","Healthy","Technology","Finance","Art","Sports","India","World"]
-
-  const [butname,setButname] = useState('health')
-  const [category,setCategory] = useState([])
+  const [butname, setButname] = useState("health");
+  const [category, setCategory] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-   const fetchData = async () => {
-      const result = await axios.get(`https://gnews.io/api/v4/search?q=%22${butname}%22&apikey=${process.env.NEXT_PUBLIC_API_KEY}`)
-      setCategory(result.data.articles)
-   }
+    const fetchData = async () => {
+      const result = await axios.get(
+        `https://gnews.io/api/v4/search?q=%22${butname}%22&apikey=${process.env.NEXT_PUBLIC_API_KEY}`
+      );
+      setCategory(result.data.articles);
+    };
 
-    fetchData()
-  }, [butname])
+    fetchData();
+  }, [butname]);
 
   const settings = {
-    dots:false,
+    dots: false,
     infinite: true,
-    speed:500,
-    slidesToShow: 8,
-    slidesToScroll: 3,
+    speed: 500,
+    slidesToShow: 9,
+    slidesToScroll: 4,
     responsive: [
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 2
-      }
-    }
-  ]
-  }
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+        },
+      },
+    ],
+  };
+
+  const handleSearch = () => {
+    console.log(search);
+    // convert search into utf-18
+    const searchUtf = encodeURIComponent(search);
+    // redirect to search page using link
+    console.log("utf", searchUtf);
+    setSearch(searchUtf);
+  };
 
   return (
     <>
@@ -60,6 +84,7 @@ export default function Home({ news }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+      <Container>
         <Box
           margin={{
             base: "10px",
@@ -72,32 +97,37 @@ export default function Home({ news }) {
           alignItems="center"
         >
           <InputGroup>
-            <InputRightElement
-              pointerEvents="none"
-              children={<Search2Icon color="gray.300" />}
-            />
             <Input
               bg="gray.100"
               borderRadius="20px"
               type="tel"
               placeholder="Doge coin to Moon.."
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
             />
           </InputGroup>
-          <Icon
-            margin={{
-              base: "10px",
-              md: "0 auto",
-              lg: "0 auto",
-              xl: "20px",
-            }}
-            color="white"
-            bg="var(--button-color)"
-            height="30px"
-            width="30px"
-            borderRadius="50%"
-          >
-            <BellIcon height="20px" width="20px" />
-          </Icon>
+          <Link href={search}>
+            <Button
+              variant="outline"
+              borderRadius="20px"
+              fontSize="15px"
+              fontWeight="bold"
+              color="var(--button-color)"
+              bg="white"
+              _focus={{
+                bg: "var(--button-color)",
+                color: "white",
+              }}
+              _hover={{
+                bg: "var(--button-color)",
+                color: "white",
+              }}
+              margin="10px"
+              onClick={handleSearch}
+            >
+              Search
+            </Button>
+          </Link>
         </Box>
         <Box
           display="flex"
@@ -161,86 +191,84 @@ export default function Home({ news }) {
             <Latest news={news} />
           </Box>
         </Box>
-        <Box 
-        marginTop={{
-          base: "10px",
-          xl: "20px",
-        }}
+        <Box
+          marginTop={{
+            base: "10px",
+            xl: "20px",
+          }}
         >
           <Slider {...settings}>
-          {but.map((item) => (
-            <div 
-            style={{
-              margin:"10px",
-             width:"100px"
-            }}
-            >
-            <Button
-              key={item}
-              variant="outline"
-              borderRadius="20px"
-              fontSize="15px"
-              fontWeight="bold"
-
-              _hover={{
-                bg: "var(--button-color)",
-                color: "white",
-              }}
-              _active={{
-                bg: "var(--button-color)",
-                color: "white",
-              }}
-           
-              onClick={() => 
-              setButname(item)
-              }
-            >
-              {item}
-            </Button>
-            </div>
-          ))}
+            {but.map((item) => (
+              <div>
+                <Button
+                  key={item}
+                  variant="outline"
+                  borderRadius="20px"
+                  fontSize="15px"
+                  fontWeight="bold"
+                  color="var(--button-color)"
+                  bg="white"
+                  _focus={{
+                    bg: "var(--button-color)",
+                    color: "white",
+                  }}
+                  _hover={{
+                    bg: "var(--button-color)",
+                    color: "white",
+                  }}
+                  onClick={() => setButname(item)}
+                  margin="10px"
+                >
+                  {item}
+                </Button>
+              </div>
+            ))}
           </Slider>
         </Box>
         <Box>
-        <Container maxW="container.xl" mt="20px">
-        <Text 
-        fontSize={{
-            base: "1.5rem",
-            md: "2rem",
-            lg: "2rem",
-            xl: "2rem",
-            }}
-            fontWeight="bold"
-            color="var(--primary-color)"
-            mb="10px"
-        >
-            {butname} 
-        </Text>
-           <SimpleGrid columns={{
+          <Container maxW="container.xl" mt="20px">
+            <Text
+              fontSize={{
+                base: "1.5rem",
+                md: "2rem",
+                lg: "2rem",
+                xl: "2rem",
+              }}
+              fontWeight="bold"
+              color="var(--primary-color)"
+              mb="10px"
+            >
+              {butname}
+            </Text>
+            <SimpleGrid
+              columns={{
                 base: 1,
                 md: 2,
                 lg: 3,
                 xl: 4,
-           }} spacingX='40px' spacingY='20px'>
-                {category.map((item, index) => (
-                    <Cards1 key={index} 
-                    title={item.title}
-                    image={item.image}
-                    url={item.url}
-
-                     />
-                ))}
-</SimpleGrid>
-        </Container>
+              }}
+              spacingX="40px"
+              spacingY="20px"
+            >
+              {category.map((item, index) => (
+                <Cards1
+                  key={index}
+                  title={item.title}
+                  image={item.image}
+                  url={item.url}
+                />
+              ))}
+            </SimpleGrid>
+          </Container>
         </Box>
+        </Container>
       </main>
+
     </>
   );
 }
 
 export async function getServerSideProps() {
-
-
   const res = await fetch(
     `https://gnews.io/api/v4/search?q=%22latest%20news%22&apikey=${process.env.NEXT_PUBLIC_API_KEY}`
   );
@@ -251,5 +279,3 @@ export async function getServerSideProps() {
     },
   };
 }
-
-
