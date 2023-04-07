@@ -84,10 +84,10 @@ export default function Home({ news }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-      <Container>
+      {/* <Container> */}
         <Box
           margin={{
-            base: "10px",
+            base: "5px",
             md: "0 auto",
             lg: "0 auto",
             xl: "20px",
@@ -100,7 +100,7 @@ export default function Home({ news }) {
             <Input
               bg="gray.100"
               borderRadius="20px"
-              type="tel"
+              type="text"
               placeholder="Doge coin to Moon.."
               onChange={(e) => setSearch(e.target.value)}
               value={search}
@@ -122,7 +122,7 @@ export default function Home({ news }) {
                 bg: "var(--button-color)",
                 color: "white",
               }}
-              margin="10px"
+              marginLeft="10px"
               onClick={handleSearch}
             >
               Search
@@ -261,7 +261,7 @@ export default function Home({ news }) {
             </SimpleGrid>
           </Container>
         </Box>
-        </Container>
+        {/* </Container> */}
       </main>
 
     </>
