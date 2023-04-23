@@ -77,7 +77,7 @@ export async function getServerSideProps({ query }) {
     `https://gnews.io/api/v4/search?q=%22${search}%22&apikey=${process.env.NEXT_PUBLIC_API_KEY}`
   );
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
 
   return {
     props: {

@@ -4,7 +4,7 @@ import Cards1 from "@/components/Cards1";
 
 export default function lastestNews({latest}){
     const news = latest.articles;
-    console.log("news", news);
+    // console.log("news", news);
     return(
         <>
         <Container maxW="container.xl" mt="20px">

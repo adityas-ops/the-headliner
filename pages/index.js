@@ -9,6 +9,7 @@ import {
   Stack,
   SimpleGrid,
   Container,
+  FormControl,
 } from "@chakra-ui/react";
 import { Search2Icon, BellIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import Head from "next/head";
@@ -67,11 +68,11 @@ export default function Home({ news }) {
   };
 
   const handleSearch = () => {
-    console.log(search);
+    // console.log(search);
     // convert search into utf-18
     const searchUtf = encodeURIComponent(search);
     // redirect to search page using link
-    console.log("utf", searchUtf);
+    // console.log("utf", searchUtf);
     setSearch(searchUtf);
   };
 
@@ -83,9 +84,59 @@ export default function Home({ news }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-      {/* <Container> */}
+      <main 
+        style={{
+         overflow:"hidden"
+        }}
+
+      >
+      {/* {
+        (news == )
+      } */}
+     {/* /when api not work then it show api does not work otherwise show news */}
+      {
+        news ? (
+          <>
         <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+          // marginTop="20px"
+          width="100%"
+          height="91vh"
+          // bg="red"
+          >
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            width="80%"
+            height="50%"
+            // bg="red"
+            >
+            <Text
+              fontSize={{
+                base: "30px",
+                md: "40px",
+                lg: "40px",
+                xl: "40px",
+              }}
+              fontWeight="bold"
+              // color="white"
+              textAlign="center"
+              marginTop="20px"
+              >
+              API not working ...
+              </Text>
+            </Box>
+
+
+          </Box>
+          </>
+        ):(<>
+          <Box
           margin={{
             base: "5px",
             md: "0 auto",
@@ -96,7 +147,11 @@ export default function Home({ news }) {
           justifyContent="center"
           alignItems="center"
         >
-          <InputGroup>
+          <form onSubmit={handleSearch}
+          style={{
+            width:"100%"
+          }}
+          >
             <Input
               bg="gray.100"
               borderRadius="20px"
@@ -105,7 +160,7 @@ export default function Home({ news }) {
               onChange={(e) => setSearch(e.target.value)}
               value={search}
             />
-          </InputGroup>
+          </form>
           <Link href={search}>
             <Button
               variant="outline"
@@ -261,7 +316,9 @@ export default function Home({ news }) {
             </SimpleGrid>
           </Container>
         </Box>
-        {/* </Container> */}
+        </>)
+
+      }
       </main>
 
     </>
