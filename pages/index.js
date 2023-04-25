@@ -90,52 +90,7 @@ export default function Home({ news }) {
         }}
 
       >
-      {/* {
-        (news == )
-      } */}
-     {/* /when api not work then it show api does not work otherwise show news */}
-      {
-        news ? (
-          <>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          flexDirection="column"
-          // marginTop="20px"
-          width="100%"
-          height="91vh"
-          // bg="red"
-          >
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-            width="80%"
-            height="50%"
-            // bg="red"
-            >
-            <Text
-              fontSize={{
-                base: "30px",
-                md: "40px",
-                lg: "40px",
-                xl: "40px",
-              }}
-              fontWeight="bold"
-              // color="white"
-              textAlign="center"
-              marginTop="20px"
-              >
-              API not working ...
-              </Text>
-            </Box>
-
-
-          </Box>
-          </>
-        ):(<>
+      <>
           <Box
           margin={{
             base: "5px",
@@ -316,9 +271,7 @@ export default function Home({ news }) {
             </SimpleGrid>
           </Container>
         </Box>
-        </>)
-
-      }
+        </>
       </main>
 
     </>
